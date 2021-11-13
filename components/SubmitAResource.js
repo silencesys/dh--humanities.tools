@@ -66,6 +66,7 @@ const SubmitAResource = ({
           </button>
         </header>
         <form action='/' method='POST' name='resources' onSubmit={handleSubmit} data-netlify='true'>
+          <input type="hidden" name="form-name" value="resources" />
           <div className={style.formGroup}>
             <label htmlFor="resourceTitle">{t('resource:name')}</label>
             <input name="name" type="text" id="resourceTitle" onChange={handleChange} value={formContent.name} required />
