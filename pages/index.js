@@ -105,7 +105,7 @@ export default function Home({ resources, tags }) {
       {filters.length > 0 && <ActiveTags tags={filters} onFilterChange={onFilterChange} />}
       {submitModal && <SubmitAResource onClose={toggleSubmitModal} onSuccess={onSuccessfulSubmit} />}
 
-      <form name="resources" netlify hidden>
+      <form name="resources" data-netlify='true' netlify-honeypot='bot-field' hidden>
         <input type="text" name="name" />
         <input type="text" name="website" />
       </form>
