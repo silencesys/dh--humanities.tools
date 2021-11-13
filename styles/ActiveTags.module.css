@@ -1,0 +1,40 @@
+.wrapper {
+  background-color: rgb(var(--white));
+  bottom: 2rem;
+  border-radius: .5rem;
+  box-shadow: 0 0 1rem rgba(var(--orange-400), .35);
+  height: auto;
+  left: 2rem;
+  padding: 1rem 1rem;
+  position: fixed;
+  width: auto;
+  max-width: calc(100% - 4rem);
+}
+.title {
+  color: rgb(var(--orange-900));
+  font-size: .8rem;
+  font-weight: 600;
+  margin-right: 1.5rem;
+  margin-left: 1rem;
+  text-transform: uppercase;
+}
+.button {
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid rgb(var(--orange-600));
+  border-radius: .5rem;
+  color: rgb(var(--orange-600));
+  cursor: pointer;
+  display: inline-flex;
+  padding: .75rem 1rem;
+  margin-bottom: .75rem;
+  margin-right: .75rem;
+  transition: all .2s ease-in-out;
+  text-transform: lowercase;
+}
+.button:hover {
+  background-color: rgb(var(--orange-200));
+}
+.icon {
+  margin-left: .5rem;
+}

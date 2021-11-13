@@ -1,3 +1,3 @@
 ---
-title: Manuskripty
+title: Rukopisy
 ---

@@ -5,21 +5,23 @@ const Resource = ({
   title = 'Title',
   logo = null,
   description = 'Description',
-  tags = ['tag', 'div'],
-  url = '#',
-  cover = null
+  tagList = [],
+  website = '#',
+  cover = null,
+  onFilterChange = () => {},
 }) => {
   return (
     <article className={style.wrapper}>
-      <a href={url} rel='noopener noreferrer' target='_blank'>
+      <a href={website} rel='noopener noreferrer' target='_blank'>
         {cover && <div className={style.cover}>
             <Image
               src={cover}
               alt='logo'
-              width='250px'
-              height='250px'
+              width='280px'
+              height='220px'
               objectFit='contain'
               className={style.preview}
+              unoptimized
             />
         </div>}
         <div className={style.content}>
@@ -27,10 +29,11 @@ const Resource = ({
             {logo && <Image
               src={logo}
               alt='logo'
-              width='36px'
+              width='26px'
               height='28px'
               objectFit='contain'
               className={style.logo}
+              unoptimized
             />}
             <h3 className={style.title}>
               {title}
@@ -40,10 +43,10 @@ const Resource = ({
           <footer className={style.footer}>
             <div></div>
             <div className={style.tags}>
-              {tags.map((tag, index) => {
+              {tagList.map((tag, index) => {
               return (
-                <button className={style.tagButton} key={index}>
-                  #{tag}
+                <button className={style.tagButton} key={index} onClick={(e) => onFilterChange(e, tag)}>
+                  #{tag.title}
                 </button>
               )})}
             </div>

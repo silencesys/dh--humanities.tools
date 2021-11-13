@@ -2,8 +2,9 @@
   background-color: rgb(var(--orange-100));
   color: rgb(var(--orange-900));
   display: flex;
-  height: 200px;
+  height: 230px;
   width: 100%;
+  padding-bottom: 1rem;
 }
 .container {
   align-content: center;
@@ -12,10 +13,11 @@
   gap: 3rem;
   justify-content: center;
   margin-inline: auto;
-  max-width: 1152px;
+  max-width: 1250px;
   width: 100%;
 }
 .title {
+  font-size: 1rem;
   font-weight: 800;
   display: block;
   margin-bottom: .5rem;
@@ -37,4 +39,10 @@
 }
 .menu li a:hover {
   color: rgb(var(--orange-600));
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    padding: 0 1.5rem;
+  }
 }

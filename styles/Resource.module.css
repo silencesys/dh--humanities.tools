@@ -1,29 +1,43 @@
 .wrapper {
+  border: 1px solid rgba(var(--orange-200), .75);
   border-radius: .5rem;
-  box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .5);
+  box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .75);
   overflow: hidden;
-  transition: all .15s ease-in-out;
+  transition: all .35s ease-in-out;
 }
 .wrapper:hover {
-  transform: scale(1.05);
-  box-shadow: 0 .2rem 1.5rem rgba(var(--orange-200), .75);
+  transform: scale(1.03);
+  box-shadow: 0 .2rem 1.5rem rgba(var(--orange-200), .9);
+}
+.wrapper a {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 275px 1fr;
+  height: 100%;
 }
 .content {
+  display: flex;
+  flex-direction: column;
   padding: 2rem;
+  flex: 1;
+  height: 100%;
+}
+.content p {
+  margin-bottom: 2rem;
 }
 .cover {
   background: rgb(var(--orange-100));
   background: -webkit-linear-gradient(to bottom, rgb(var(--orange-100)), rgb(var(--orange-050)));
   background: linear-gradient(to bottom, rgb(var(--orange-100)), rgb(var(--orange-050)));
-  height: 300px;
-  width: 100%;
+  padding: 1rem 0 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  image-rendering: crisp-edges;
   overflow: hidden;
 }
 .cover span {
-  box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .5);
+  box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .95);
 }
 .preview {
   background-color: rgb(var(--white));
@@ -32,22 +46,22 @@
 .header {
   display: flex;
   margin-bottom: 1rem;
-  margin-top: 1rem;
 }
 .header span {
-  margin-right: 1rem;
+  margin-right: .75rem !important;
+  margin-left: -2px !important;
 }
 .title {
   font-size: 1.5rem;
   font-weight: 600;
 }
 .logo {
-  background-color: rgb(var(--orange-300));
   margin: 0;
   padding: 0;
+  image-rendering: crisp-edges;
 }
 .footer {
-  margin-top: 3rem;
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
 }
@@ -58,10 +72,35 @@
   cursor: pointer;
   font-family: proxima-nova, sans-serif;
   transition: all .2s ease-in-out;
+  text-transform: lowercase;
 }
 .tagButton:not(:last-of-type) {
   margin-right: .5rem;
 }
 .tagButton:hover {
   color: rgb(var(--orange-600));
+}
+
+
+@media screen and (max-width: 1150px) and (min-width: 900px) {
+  .wrapper a {
+    grid-template-rows: auto 1fr;
+  }
+  .cover {
+    padding: 1rem 0 0;
+  }
+}
+@media screen and (max-width: 1040px) and (min-width: 900px) {
+  .cover {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 700px) and (min-width: 655px) {
+  .wrapper a {
+    grid-template-rows: auto 1fr;
+  }
+  .cover {
+    padding: 0;
+  }
 }

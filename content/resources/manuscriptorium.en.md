@@ -1,7 +1,9 @@
 ---
 title: Manuscriptorium
-description: The Manuscriptorium project is creating a virtual research
-  environment providing access to all existing digital documents in the sphere
-  of historic book resources (manuscripts, incunabula, early printed books,
-  maps, charters and other types of documents).
+logo: /images/manuscriptorium-favicon.png
+cover: /images/manuscriptorium-cover.jpg
+tags:
+  - 2021-11-13_manuskripty
+description: Digital archive of manuscripts, maps and other documents.
+website: https://beta.manuscriptorium.com/
 ---

@@ -68,19 +68,20 @@ a {
 .content__body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 3.125rem;
-  max-width: 1152px;
+  gap: 4rem;
+  max-width: 1250px;
   margin-inline: auto;
 }
 .content__filterRow {
   margin-top: 5rem;
   margin-bottom: 3rem;
-  max-width: 1152px;
+  max-width: 1250px;
   margin-inline: auto;
 }
 .button__secondary {
   background: none;
   border: none;
+  display: inline-block;
   color: rgb(var(--orange-900));
   cursor: pointer;
   font-family: proxima-nova, sans-serif;
@@ -92,4 +93,11 @@ a {
 }
 .buttonIcon {
   margin-right: .5rem;
+}
+
+.tagFilter {
+  display: none;
+}
+.tagFilterButton:hover .tagFilter {
+  display: block;
 }

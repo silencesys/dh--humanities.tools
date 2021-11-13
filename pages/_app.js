@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 // Add custom styles
 import '@style/variables.css'
 import '@style/globals.css'
+import '@style/mobile.css'
 
 config.autoAddCss = false
 
