@@ -1,0 +1,40 @@
+.wrapper {
+  background-color: rgb(var(--orange-100));
+  color: rgb(var(--orange-900));
+  display: flex;
+  height: 200px;
+  width: 100%;
+}
+.container {
+  align-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  justify-content: center;
+  margin-inline: auto;
+  max-width: 1152px;
+  width: 100%;
+}
+.title {
+  font-weight: 800;
+  display: block;
+  margin-bottom: .5rem;
+}
+.copyright {
+  color: rgb(var(--orange-400));
+  font-size: .8rem;
+  font-weight: 400;
+}
+.menu {
+  list-style: none;
+}
+.menu li {
+  list-style: none;
+}
+.menu li a {
+  font-size: 1rem;
+  transition: all .2s ease-in-out;
+}
+.menu li a:hover {
+  color: rgb(var(--orange-600));
+}

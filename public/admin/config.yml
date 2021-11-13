@@ -1,0 +1,84 @@
+# See https://github.com/netlify/netlify-cms/blob/master/example/config.yml
+backend:
+  name: git-gateway
+  # repo: silencesys/meritia
+  branch: main # Branch to update (optional; defaults to master)
+
+i18n:
+  # Required and can be one of multiple_folders, multiple_files or single_file
+  # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
+  # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
+  # single_file - persists a single file in `<folder>/<slug>.<extension>`
+  structure: multiple_files
+  # Required - a list of locales to show in the editor UI
+  locales: [cs, en]
+  # Optional, defaults to the first item in locales.
+  # The locale to be used for fields validation and as a baseline for the entry.
+  default_locale: cs
+
+# display_url: https://netlify-cms-react-starter.netlify.com
+# This url will display in the top-right of the CMS
+media_folder: public/images
+public_folder: /images
+site_url: https://www.humanities.tools
+display_url: https://www.humanities.tools
+logo_url: https://www.humanities.tools/logo.svg
+locale: en
+search: false
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - label: "Pages"
+    name: "pages"
+    description: "On this page the content of the site can be edited."
+    i18n:
+      structure: single_file
+      locales: [cs, en]
+    editor:
+      preview: false
+    files:
+      - label: "Home"
+        name: "home"
+        file: "content/home.md"
+        i18n: true
+        fields:
+          - { name: "title", label: "Název", widget: "string", required: true, i18n: true }
+          - { name: "body", label: "Obsah", widget: "markdown", required: true, i18n: true  }
+
+  - label: "Resources"
+    name: "resources"
+    label_singular: "resource"
+    description: "On this page resources can be managed."
+    folder: "content/resources"
+    create: true
+    delete: true
+    i18n: true
+    editor:
+      preview: false
+    fields:
+      - { name: "title", label: "Name", widget: "string", required: true, i18n: true }
+      - { name: "description", label: "Description", widget: "markdown", required: true, i18n: true }
+      - { name: "website", label: "Website", widget: "string", required: true }
+      - { name: "logo", label: "Logo", widget: "image" }
+      - { name: "preview", label: "Preview", widget: "image" }
+      - { name: "tags", label: "Tags", widget: "relation", collection: "tags", multiple: true, value_field: "slug", search_fields: ["title"], display_fields: ["title"] }
+    sortable_fields: ["title"]
+
+  - label: "Tags"
+    name: "tags"
+    label_singular: "tag"
+    description: "On this page tags can be managed."
+    folder: "content/tags"
+    create: true
+    i18n: true
+    delete: true
+    editor:
+      preview: false
+    fields:
+      - { name: "title", label: "Name", widget: "string", required: true, i18n: true }
+      - { name: "description", label: "Description", widget: "markdown", i18n: true }
+    sortable_fields: ["title"]

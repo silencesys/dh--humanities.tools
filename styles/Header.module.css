@@ -1,0 +1,66 @@
+.container {
+  align-content: center;
+  border-bottom: 1px solid rgb(var(--orange-300));
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  justify-content: space-between;
+  margin-inline: auto;
+  padding: 2rem 0;
+  max-width: 1152px;
+  width: 100%;
+}
+.siteTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.siteTitle a {
+  transition: all .2s ease-in-out;
+}
+.siteTitle a:hover {
+  color: rgb(var(--orange-600))
+}
+.icon {
+  margin-left: .5rem;
+}
+.menu {
+  list-style: none;
+  position: relative;
+  cursor: default;
+}
+.menu > li {
+  list-style: none;
+  display: inline-block;
+}
+.menu > li > ul {
+  background-color: rgb(var(--white));
+  border-radius: .5rem;
+  box-shadow: 0 .25rem .5rem rgba(var(--orange-200), 1);
+  display: none;
+  list-style: none;
+  margin-left: -.5rem;
+  padding: 1rem 1rem 1rem;
+  position: absolute;
+}
+.menu > li:hover > ul  {
+  display: block;
+}
+.menu > li > ul > li {
+  display: block;
+  margin-bottom: 1rem;
+}
+.menu > li > ul > li:last-of-type {
+  margin-bottom: 0;
+}
+.menuButton {
+  background: none;
+  border: none;
+  color: rgb(var(--orange-900));
+  cursor: pointer;
+  font-family: proxima-nova, sans-serif;
+  font-size: 1rem;
+  transition: all .2s ease-in-out;
+}
+.menuButton:hover {
+  color: rgb(var(--orange-600));
+}
