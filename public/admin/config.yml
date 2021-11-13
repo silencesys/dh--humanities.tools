@@ -61,11 +61,11 @@ collections:
       preview: false
     fields:
       - { name: "title", label: "Name", widget: "string", required: true, i18n: true }
+      - { name: "logo", label: "Logo", widget: "image", i18n: duplicate, required: false }
       - { name: "description", label: "Description", widget: "markdown", required: true, i18n: true }
       - { name: "tags", label: "Tags", widget: "relation", collection: "tags", multiple: true, value_field: "{{slug}}", search_fields: ["title"], display_fields: ["title"], i18n: duplicate }
       - { name: "website", label: "Website", widget: "string", required: true, i18n: duplicate }
-      - { name: "logo", label: "Logo", widget: "image", i18n: duplicate }
-      - { name: "preview", label: "Preview", widget: "image", i18n: duplicate }
+      - { name: "cover", label: "Cover", widget: "image", i18n: duplicate, required: false }
     sortable_fields: ["title"]
 
   - label: "Tags"
