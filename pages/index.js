@@ -104,6 +104,11 @@ export default function Home({ resources, tags }) {
       <Footer />
       {filters.length > 0 && <ActiveTags tags={filters} onFilterChange={onFilterChange} />}
       {submitModal && <SubmitAResource onClose={toggleSubmitModal} onSuccess={onSuccessfulSubmit} />}
+
+      <form name="resources" netlify hidden>
+        <input type="text" name="name" />
+        <input type="text" name="website" />
+      </form>
     </div>
   )
 }
