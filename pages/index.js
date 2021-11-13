@@ -16,6 +16,24 @@ export default function Home({ resources, tags }) {
   const [submitModal, setSubmitModal] = useState(false)
   const [ currentResources, setCurrentResources ] = useState(resources)
   const [ filters, setFilters ] = useState([])
+  const [ recentlySubmitted, setRecentlySubmitted ] = useState(false)
+
+  useEffect(() => {
+    if (filters.length > 0) {
+      const filteredResources = resources.filter(resource => resource.tags.some(tag => filters.some(tags => tags.slug === tag)))
+      setCurrentResources(filteredResources)
+    } else {
+      setCurrentResources(resources)
+    }
+  }, [filters, resources])
+
+  useEffect(() => {
+    if (recentlySubmitted) {
+      setTimeout(() => {
+        setRecentlySubmitted(false)
+      }, 5000)
+    }
+  }, [recentlySubmitted])
 
   const toggleSubmitModal = (e) => {
     e.preventDefault()
@@ -34,14 +52,11 @@ export default function Home({ resources, tags }) {
     })
   }
 
-  useEffect(() => {
-    if (filters.length > 0) {
-      const filteredResources = resources.filter(resource => resource.tags.some(tag => filters.some(tags => tags.slug === tag)))
-      setCurrentResources(filteredResources)
-    } else {
-      setCurrentResources(resources)
-    }
-  }, [filters, resources])
+  const onSuccessfulSubmit = (e) => {
+    e.preventDefault()
+    setSubmitModal(false)
+    setRecentlySubmitted(true)
+  }
 
   return (
     <div className='websiteWrapper'>
@@ -71,6 +86,7 @@ export default function Home({ resources, tags }) {
           <button className='button__primary' onClick={toggleSubmitModal}>
             {t('resource:submit_resource')}
           </button>
+          {recentlySubmitted && <p className='content__successfulSubmit'>{t('home:submit_successful')}</p>}
         </div>
 
         <div className='content__filterRow'>
@@ -87,7 +103,7 @@ export default function Home({ resources, tags }) {
 
       <Footer />
       {filters.length > 0 && <ActiveTags tags={filters} onFilterChange={onFilterChange} />}
-      {submitModal && <SubmitAResource onClose={toggleSubmitModal} />}
+      {submitModal && <SubmitAResource onClose={toggleSubmitModal} onSuccess={onSuccessfulSubmit} />}
     </div>
   )
 }

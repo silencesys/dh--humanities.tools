@@ -48,6 +48,10 @@ a {
   margin-top: 5rem;
   text-align: center;
 }
+.content__successfulSubmit {
+  color: rgb(var(--orange-600));
+  font-weight: 600;
+}
 .button__primary {
   background-color: rgb(var(--orange-600));
   border: none;
