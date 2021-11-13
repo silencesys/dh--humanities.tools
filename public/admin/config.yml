@@ -1,7 +1,7 @@
 # See https://github.com/netlify/netlify-cms/blob/master/example/config.yml
 backend:
-  name: git-gateway
-  # repo: silencesys/meritia
+  name: github
+  repo: silencesys/dh--humanities.tools
   branch: main # Branch to update (optional; defaults to master)
 
 i18n:
