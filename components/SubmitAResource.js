@@ -43,7 +43,7 @@ const SubmitAResource = ({
       .then(() => {
         setFormContent({ name: '', website: '' })
         onClose(e)
-        onSuccess(true)
+        onSuccess(e)
       })
       .catch(error => console.error(error))
 
