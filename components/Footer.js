@@ -9,7 +9,7 @@ const Footer = () => {
   const { t, lang } = useTranslation('common')
 
   const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const { data, error } = useSWR(`/api/getpagelist?locale=${lang}`, fetcher)
+  const { data, error } = useSWR(`/api/pages?locale=${lang}`, fetcher)
 
   return (
     <footer className={style.wrapper}>

@@ -1,7 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-
 export default function handler (req, res) {
   // const dirRelativeToPublicFolder = 'pages'
   // const locale = req.query.locale || 'any'
@@ -25,5 +21,5 @@ export default function handler (req, res) {
   // })
 
   // res.statusCode = 200
-  res.json('Hi');
+  res.status(200).json('Hi');
 }
