@@ -37,7 +37,7 @@
   image-rendering: crisp-edges;
   overflow: hidden;
 }
-.cover span {
+.cover div {
   box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .95);
 }
 .preview {
@@ -48,7 +48,7 @@
   display: flex;
   margin-bottom: 1rem;
 }
-.header span {
+.header div {
   margin-right: .75rem !important;
   margin-left: -2px !important;
 }
