@@ -42,7 +42,7 @@
   color: rgb(var(--orange-600));
 }
 
-@media screen and (max-width: var(--max-width)) {
+@media screen and (max-width: 1200px) {
   .wrapper {
     padding: 0 1.5rem;
   }

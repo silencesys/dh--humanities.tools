@@ -1,4 +1,4 @@
-@media screen and (max-width: var(--max-width)) {
+@media screen and (max-width: 1200px) {
   .mainContainer {
     padding: 0 1.5rem 10rem;
   }
