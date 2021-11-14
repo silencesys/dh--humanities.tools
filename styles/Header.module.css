@@ -64,3 +64,10 @@
 .menuButton:hover {
   color: rgb(var(--orange-600));
 }
+
+@media screen and (max-width: 1200px) {
+  .container {
+    margin-inline: 1.5rem;
+    width: calc(100% - 3rem);
+  }
+}
