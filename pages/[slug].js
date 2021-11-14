@@ -1,9 +1,10 @@
+import React from 'react'
 import Head from '@components/Head'
 import ReactMarkdown from 'react-markdown'
 import { getSlugs } from '@utils/api'
 import matter from 'gray-matter'
 
-const Page = ({ data, content }) => {
+export default function Page ({ data, content }) {
   return (
     <main className='mainContainer'>
       <Head title={`${data.title} | humanities.tools`} />
@@ -45,5 +46,3 @@ export async function getStaticPaths ({ locales }) {
     fallback: false
   }
 }
-
-export default Page
