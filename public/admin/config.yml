@@ -45,7 +45,7 @@ collections:
     fields:
       - { name: "title", label: "Name", widget: "string", required: true, i18n: true }
       - { name: "date", label: "Published", widget: "date", required: true, i18n: duplicate }
-      - { name: "higlight", label: "Catch phrase", widget: "image", i18n: true, required: false }
+      - { name: "higlight", label: "Catch phrase", widget: "string", i18n: true, required: false }
       - { name: "content", label: "Content", widget: "markdown", required: false, i18n: true }
     sortable_fields: ["title"]
 
