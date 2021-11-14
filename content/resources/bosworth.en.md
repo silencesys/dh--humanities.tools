@@ -5,5 +5,6 @@ cover: /images/bosworth-cover.jpg
 description: This is an online edition of the Bosworth-Toller's Anglo-Saxon Dictionary, or a dictionary of "Old English".
 tags:
   - 2021-11-13_slovniky
+  - 2021-11-13_jazyky
 website: https://bosworthtoller.com/
 ---

@@ -5,5 +5,6 @@ cover: /images/ima-cover.jpg
 description: IMA je nástroj, který umožňuje označit zóny na obrázcích a exportovat je jako validní XML TEI kód.
 tags:
   - 2021-11-13_vizualizace
+  - 2021-11-13_kodovani
 website: https://ima.coders.tools/
 ---

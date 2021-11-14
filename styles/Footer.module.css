@@ -13,14 +13,14 @@
   gap: 3rem;
   justify-content: center;
   margin-inline: auto;
-  max-width: 1250px;
+  max-width: var(--max-width);
   width: 100%;
 }
 .title {
   font-size: 1rem;
   font-weight: 800;
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
 }
 .copyright {
   color: rgb(var(--orange-400));
@@ -32,6 +32,7 @@
 }
 .menu li {
   list-style: none;
+  margin-bottom: 1rem;
 }
 .menu li a {
   font-size: 1rem;
@@ -41,7 +42,7 @@
   color: rgb(var(--orange-600));
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: var(--max-width)) {
   .wrapper {
     padding: 0 1.5rem;
   }

@@ -34,20 +34,20 @@ slug:
 collections:
   - label: "Pages"
     name: "pages"
-    description: "On this page the content of the site can be edited."
-    i18n:
-      structure: single_file
-      locales: [cs, en]
+    label_singular: "page"
+    description: "On this page pages can be managed."
+    folder: "content/pages"
+    create: true
+    delete: true
+    i18n: true
     editor:
       preview: false
-    files:
-      - label: "Home"
-        name: "home"
-        file: "content/home.md"
-        i18n: true
-        fields:
-          - { name: "title", label: "Název", widget: "string", required: true, i18n: true }
-          - { name: "body", label: "Obsah", widget: "markdown", required: true, i18n: true  }
+    fields:
+      - { name: "title", label: "Name", widget: "string", required: true, i18n: true }
+      - { name: "date", label: "Published", widget: "date", required: true, i18n: duplicate }
+      - { name: "higlight", label: "Catch phrase", widget: "image", i18n: true, required: false }
+      - { name: "content", label: "Content", widget: "markdown", required: false, i18n: true }
+    sortable_fields: ["title"]
 
   - label: "Resources"
     name: "resources"

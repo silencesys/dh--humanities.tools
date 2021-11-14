@@ -43,12 +43,9 @@ const Resource = ({
           <footer className={style.footer}>
             <div></div>
             <div className={style.tags}>
-              {tagList.map((tag, index) => {
-              return (
-                <button className={style.tagButton} key={index} onClick={(e) => onFilterChange(e, tag)}>
-                  #{tag.title}
-                </button>
-              )})}
+              <button className={style.tagButton} onClick={(e) => onFilterChange(e, tagList[0])}>
+                #{tagList[0].title}
+              </button>
             </div>
           </footer>
         </div>
