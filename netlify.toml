@@ -15,5 +15,5 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["webpack"]
-  included_files = ["content/*.md"]
+  external_node_modules = ["webpack", "gray-matter", "fs", "path"]
+  included_files = ["content/pages/*.md"]
