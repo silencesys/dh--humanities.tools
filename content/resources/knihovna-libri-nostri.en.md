@@ -1,4 +1,5 @@
 ---
+title: Library Libri Nostri
 description: "The library is intended for those interested in historical,
   religious, philosophical, sociological and musical publications and their
   bibliography. "
