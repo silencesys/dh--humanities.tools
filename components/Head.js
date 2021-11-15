@@ -17,7 +17,10 @@ const HeadElement = ({
     <meta property='og:site_name' content='Humanities.tools' />
     <meta property='og:url' content='https://www.humanities.tools' />
     <meta property='og:image' content='https://www.humanities.tools/og-image.jpg' />
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='630' />
     <meta name='twitter:image' content='https://www.humanities.tools/og-image.jpg' />
+    <meta name='twitter:card' content='summary_large_image' />
     <meta name='twitter:image:alt' content='Catalogue of tools and resources for academics in the field of humanities' />
     <meta name="twitter:creator" content="@silencesys" />
   </Head>
