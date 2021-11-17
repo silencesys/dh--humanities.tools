@@ -5,6 +5,7 @@ description: It is a database containing 2356 works and 3145 editions and
 tags:
   - 2021-11-13_zdroje
   - 2021-11-14_historie
+  - antika
 website: https://scaife.perseus.org/
 cover: /images/perseus-cover.jpg
 ---
