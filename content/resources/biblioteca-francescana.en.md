@@ -1,6 +1,6 @@
 ---
 title: Biblioteca Francescana
-description: Franciscan Library.
+description: The database allows you to search the Franciscan library. Some functions may be limited by the need to register.
 tags:
   - 2021-11-13_zdroje
   - nabozenstvi

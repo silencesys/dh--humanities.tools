@@ -1,6 +1,6 @@
 ---
 title: Biblioteca Francescana
-description: Františkánská knihovna.
+description: Databáze umožňuje vyhledávat ve františkánské knihovně. Některé funkce mohou být limitované nutností registrovat se.
 tags:
   - 2021-11-13_zdroje
   - nabozenstvi

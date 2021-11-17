@@ -15,4 +15,5 @@ tags:
   - mapy
   - 2021-11-13_digital_humanities
 website: https://lindat.cz/
+cover: /images/lindat-cover.jpg
 ---

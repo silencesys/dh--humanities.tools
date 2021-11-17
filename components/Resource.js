@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import style from '@style/Resource.module.css'
 
@@ -10,8 +11,43 @@ const Resource = ({
   cover = null,
   onFilterChange = () => {},
 }) => {
+  const [ showMore, setShowMore ] = useState(false)
+  const reference = useRef(null)
+
+  useEffect(() => {
+    let timeout = null
+    reference.current.addEventListener('mouseenter', () => {
+      timeout = setTimeout(() => {
+        setShowMore(true)
+      }, 1000)
+    })
+    reference.current.addEventListener('mouseleave', () => {
+      clearTimeout(timeout)
+      setShowMore(false)
+    })
+
+    return () => {
+      reference.current.removeEventListener('mouseenter', () => {
+        timeout = setTimeout(() => {
+          setShowMore(true)
+        }, 1000)
+      })
+      reference.current.removeEventListener('mouseleave', () => {
+        clearTimeout(timeout)
+        setShowMore(false)
+      })
+      clearTimeout(timeout)
+    }
+  }, [reference])
+
+  const resourceDescription = (
+    description.length > 120 && !showMore ?
+    <p>{description.match(/.{1,120}(\s|$)/g)[0].slice(0, -1)}...</p>
+    : <p>{description}</p>
+  )
+
   return (
-    <article className={style.wrapper}>
+    <article ref={reference} className={style.wrapper}>
       <a href={website} rel='noopener noreferrer' target='_blank'>
         {cover && <div className={style.cover}>
             <Image
@@ -39,7 +75,7 @@ const Resource = ({
               {title}
             </h3>
           </header>
-          <p>{description}</p>
+          {resourceDescription}
           <footer className={style.footer}>
             <div></div>
             <div className={style.tags}>

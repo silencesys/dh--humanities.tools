@@ -81,6 +81,17 @@
 .tagButton:hover {
   color: rgb(var(--orange-600));
 }
+.showMore {
+  background: none;
+  border: none;
+  color: rgb(var(--orange-600));
+  cursor: pointer;
+  display: inline-block;
+  font-family: proxima-nova, sans-serif;
+  transition: all .2s ease-in-out;
+  text-transform: lowercase;
+  margin-left: .5rem;
+}
 
 
 @media screen and (max-width: 1150px) and (min-width: 900px) {
