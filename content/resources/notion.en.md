@@ -1,4 +1,5 @@
 ---
+title: Notion
 logo: /images/notion-logo.png
 description: Notion is a project management and note-taking app. It is designed
   to coordinate deadlines, objectives, and assignments for the sake of
