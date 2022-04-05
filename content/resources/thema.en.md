@@ -1,4 +1,5 @@
 ---
+title: ThEMA
 description: "A thesaurus of 13286 exemplary anecdotes from the Middle Ages: a
   multimedia, multilingual database of exemplary stories giving special insight
   into the imagination of men and women in the Medieval West and beyond, from
