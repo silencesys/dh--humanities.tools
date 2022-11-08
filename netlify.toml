@@ -6,7 +6,7 @@
   for = "/*"
 
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com https://*.rocek.dev/; style-src 'self' 'unsafe-inline' https://*.typekit.net/; script-src-elem 'self' https://*.netlify.com https://*.rocek.dev/ https://unpkg.com; font-src 'self' 'unsafe-inline' data: https://*.typekit.net/; img-src 'self' 'unsafe-inline' blob: data: https://avatars.githubusercontent.com/; connect-src 'self' blob: data: https://*.github.com/ https://www.githubstatus.com/; media-src 'self'; object-src; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com https://*.rocek.dev/; style-src 'self' 'unsafe-inline' https://*.typekit.net/; script-src-elem 'self' https://*.netlify.com https://*.rocek.dev/ https://unpkg.com; font-src 'self' 'unsafe-inline' data: https://*.typekit.net/; img-src 'self' 'unsafe-inline' blob: data: https://avatars.githubusercontent.com/; connect-src 'self' blob: data: https://*.github.com/ https://www.githubstatus.com/ https://*.rocek.dev/; media-src 'self'; object-src; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
     Referrer-Policy = "same-origin"
     Strict-Transport-Security = "max-age=15768000"
     X-Content-Type-Options = "nosniff"
