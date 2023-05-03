@@ -7,10 +7,6 @@ const Layout = ({ children }) => {
       <Header />
       <main>{children}</main>
       <Footer />
-      <form name="resources" data-netlify='true' netlify-honeypot='bot-field' hidden>
-        <input type="text" name="name" />
-        <input type="text" name="website" />
-      </form>
     </div>
   )
 }
