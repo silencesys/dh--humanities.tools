@@ -107,7 +107,7 @@ export async function getStaticProps ({ locale }) {
     const resourceTags = resource.properties.Categories.multi_select.map((item) => item.name)
     return [...acc, ...resourceTags]
   }, []).filter((item, index, array) => array.indexOf(item) === index)
-
+  path.resolve('content')
   return {
     props: {
       resources,
