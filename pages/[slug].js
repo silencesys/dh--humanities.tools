@@ -3,8 +3,10 @@ import Head from '@components/Head'
 import ReactMarkdown from 'react-markdown'
 import { getSlugs } from '@utils/api'
 import matter from 'gray-matter'
+import path from 'path'
+import fs from 'fs'
 
-export default function Page ({ data, content }) {
+export default function Page ({ data, content }) {
   return (
     <main className='mainContainer'>
       <Head title={`${data.title} | humanities.tools`} />
@@ -20,8 +22,9 @@ export default function Page ({ data, content }) {
 }
 
 export async function getStaticProps ({ params: { slug }, locale }) {
-  const content = await import(`@content/pages/${slug}.${locale}.md`)
-  const data = matter(content.default)
+  const content = path.resolve(`./content/pages/${slug}.${locale}.md`)
+  const fileContent = fs.readFileSync(content, 'utf8')
+  const data = matter(fileContent)
 
   return {
     props: {
@@ -35,7 +38,7 @@ export async function getStaticProps ({ params: { slug }, locale }) {
 export async function getStaticPaths ({ locales }) {
   const pages = ((context) => {
     return getSlugs(context, locales)
-  })(require.context('@content/pages', true, /\.\/.*\.md$/))
+  })(require.context('../content/pages', true, /\.\/.*\.md$/))
 
   const paths = pages.map((pages) => {
     return { params: { slug: pages.slug }, locale: pages.locale }

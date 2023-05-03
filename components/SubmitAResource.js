@@ -35,6 +35,7 @@ const SubmitAResource = ({
   }
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     const response = await fetch('/api/notion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -48,11 +49,8 @@ const SubmitAResource = ({
       console.error(response.error)
       return
     }
-
     onClose(e)
     onSuccess(e)
-
-    e.preventDefault()
   }
 
   const handleChange = (e) => {
