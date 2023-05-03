@@ -22,18 +22,6 @@ function _mapPosts (context, filterCallback = null, locale = 'any') {
     })
     document.slug = slug
 
-    // Load tags with localised content
-    let tags = []
-    if (document.data.tags) {
-      tags = document.data.tags.map(tag => {
-        const tagData = require(`@content/tags/${tag}.${locale}.md`)
-        return {
-          title: matter(tagData.default).data.title,
-          slug: tag
-        }
-      })
-    }
-
     if (document.data.date) {
       // Make sure that Dates are parsed as string
       document.data.date = document.data.date.toString()
@@ -44,7 +32,7 @@ function _mapPosts (context, filterCallback = null, locale = 'any') {
       content: document.content,
       excerpt: document.excerpt,
       slug,
-      tagList: tags,
+      tagList: [],
     }
 
     if (filterCallback !== null) {
