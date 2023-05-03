@@ -8,6 +8,7 @@ import SubmitAResource from '@components/SubmitAResource'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from '@fortawesome/pro-solid-svg-icons'
 import { getDatabase, parseNotionPage } from '@utils/notion'
+import path from 'path'
 
 export default function Home({ resources, tags }) {
   const { t } = useTranslation('common', 'home')
