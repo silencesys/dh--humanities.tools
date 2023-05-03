@@ -5,12 +5,12 @@ const TagList = ({ tags, onFilterChange = () => {}, activeTags = [] }) => {
     <div className={`${style.wrapper} tagFilter`}>
       <ul className={style.list}>
         {tags.map(tag => (
-          <li key={tag.slug}>
+          <li key={tag}>
             <button
               onClick={(e) => onFilterChange(e, tag)}
-              className={`${style.tagButton} ${activeTags.some(at => at.slug === tag.slug) ? style.active : ''}`}
+              className={`${style.tagButton} ${activeTags.some(at => at === tag) ? style.active : ''}`}
             >
-              {tag.title}
+              {tag}
             </button>
           </li>
         ))}

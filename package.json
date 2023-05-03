@@ -8,12 +8,16 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/pro-regular-svg-icons": "^5.15.4",
     "@fortawesome/pro-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
+    "@notionhq/client": "^2.2.3",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
     "next": "11.1.0",

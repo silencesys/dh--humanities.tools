@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: rgba(var(--white), .85);
+  background-color: rgba(var(--white), 1);
   border-bottom: 1px solid rgba(var(--orange-200));
   box-shadow: 0 1rem 1rem rgba(var(--orange-200), .25);
   padding-bottom: 1rem;

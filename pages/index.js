@@ -7,7 +7,7 @@ import ActiveTags from '@components/ActiveTags'
 import SubmitAResource from '@components/SubmitAResource'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from '@fortawesome/pro-solid-svg-icons'
-import { getPosts } from '@utils/api'
+import { getDatabase, parseNotionPage } from '@utils/notion'
 
 export default function Home({ resources, tags }) {
   const { t } = useTranslation('common', 'home')
@@ -16,9 +16,10 @@ export default function Home({ resources, tags }) {
   const [ filters, setFilters ] = useState([])
   const [ recentlySubmitted, setRecentlySubmitted ] = useState(false)
 
-  useEffect(() => {
+  useEffect(() => {
     if (filters.length > 0) {
-      const filteredResources = resources.filter(resource => resource.tags.some(tag => filters.some(tags => tags.slug === tag)))
+      console.log(resources)
+      const filteredResources = resources.filter(resource => resource.tags.some(tag => filters.some(tags => tags === tag)))
       setCurrentResources(filteredResources)
     } else {
       setCurrentResources(resources)
@@ -42,8 +43,8 @@ export default function Home({ resources, tags }) {
     e.preventDefault()
     e.stopPropagation()
     setFilters(state => {
-      if (state.some(filter => filter.slug === tag.slug)) {
-        return state.filter(filter => filter.slug !== tag.slug)
+      if (state.some(filter => filter === tag)) {
+        return state.filter(filter => filter !== tag)
       } else {
         return [...state, tag]
       }
@@ -77,7 +78,7 @@ export default function Home({ resources, tags }) {
         </div>
       </div>
       <div className='content__body'>
-        {resources && currentResources.map(resource => <Resource key={resource.slug} onFilterChange={onFilterChange} {...resource} />)}
+        {resources && currentResources.map(resource => <Resource key={resource.id} onFilterChange={onFilterChange} {...resource} />)}
       </div>
 
     {filters.length > 0 && <ActiveTags tags={filters} onFilterChange={onFilterChange} />}
@@ -88,13 +89,24 @@ export default function Home({ resources, tags }) {
 
 
 export async function getStaticProps ({ locale }) {
-  const resources = ((context) => {
-    return getPosts(context, null, locale)
-  })(require.context('@content/resources', true, /\.\/.*\.md$/))
+  let i = 50
+  let db = { next_cursor: undefined }
+  let resourceList = []
+  while (i === 50) {
+    // add 5 sec delay to avoid rate limiting
+    await new Promise(resolve => setTimeout(resolve, 5000))
+    db = await getDatabase(50, db?.next_cursor || undefined)
+    i = db.results.length
+    resourceList = [...resourceList, ...db.results]
+  }
+  const resources = resourceList
+    .map(resource => parseNotionPage(resource.properties, locale, resource.id))
+    .sort((a, b) => a.title.localeCompare(b.title))
 
-  const tags = ((context) => {
-    return getPosts(context, null, locale)
-  })(require.context('@content/tags', true, /\.\/.*\.md$/))
+  const tags = resourceList.reduce((acc, resource) => {
+    const resourceTags = resource.properties.Categories.multi_select.map((item) => item.name)
+    return [...acc, ...resourceTags]
+  }, []).filter((item, index, array) => array.indexOf(item) === index)
 
   return {
     props: {

@@ -6,7 +6,7 @@ const Resource = ({
   title = 'Title',
   logo = null,
   description = 'Description',
-  tagList = [],
+  tags = [],
   website = '#',
   cover = null,
   onFilterChange = () => {},
@@ -14,25 +14,27 @@ const Resource = ({
   const [ showMore, setShowMore ] = useState(false)
   const reference = useRef(null)
 
-  useEffect(() => {
+  useEffect(() => {
     let timeout = null
-    reference.current.addEventListener('mouseenter', () => {
+    const ref = reference.current
+
+    ref.addEventListener('mouseenter', () => {
       timeout = setTimeout(() => {
         setShowMore(true)
       }, 1000)
     })
-    reference.current.addEventListener('mouseleave', () => {
+    ref.addEventListener('mouseleave', () => {
       clearTimeout(timeout)
       setShowMore(false)
     })
 
     return () => {
-      reference.current.removeEventListener('mouseenter', () => {
+      ref.removeEventListener('mouseenter', () => {
         timeout = setTimeout(() => {
           setShowMore(true)
         }, 1000)
       })
-      reference.current.removeEventListener('mouseleave', () => {
+      ref.removeEventListener('mouseleave', () => {
         clearTimeout(timeout)
         setShowMore(false)
       })
@@ -49,7 +51,7 @@ const Resource = ({
   return (
     <article ref={reference} className={style.wrapper}>
       <a href={website} rel='noopener noreferrer' target='_blank'>
-        {cover && <div className={style.cover}>
+        {cover && <div className={style.cover}>
             <Image
               src={cover}
               alt='logo'
@@ -62,7 +64,7 @@ const Resource = ({
         </div>}
         <div className={style.content}>
           <header className={style.header}>
-            {logo && <Image
+            {logo && <Image
               src={logo}
               alt='logo'
               width='26px'
@@ -79,8 +81,8 @@ const Resource = ({
           <footer className={style.footer}>
             <div></div>
             <div className={style.tags}>
-              <button className={style.tagButton} onClick={(e) => onFilterChange(e, tagList[0])}>
-                #{tagList[0].title}
+              <button className={style.tagButton} onClick={(e) => onFilterChange(e, tags[0])}>
+                #{tags[0]}
               </button>
             </div>
           </footer>

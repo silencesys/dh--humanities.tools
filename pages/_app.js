@@ -17,7 +17,7 @@ function HumanitiesTools({ Component, pageProps }) {
         async
         defer
         data-website-id="a90b4937-dd40-4246-87fa-2cd2e5ba01b4"
-        src="https://umami.rocek.dev/umami.js"
+        src="https://umami.rocek.dev/script.js"
       />
       <Component {...pageProps} />
     </Layout>

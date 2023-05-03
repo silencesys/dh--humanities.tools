@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/pro-regular-svg-icons'
 import useTranslation from 'next-translate/useTranslation'
 import style from '@style/SubmitAResource.module.css'
+import { createPage } from '@utils/notion'
 
 const SubmitAResource = ({
   onClose = () => {},
@@ -33,19 +34,23 @@ const SubmitAResource = ({
       .join('&')
   }
 
-  const handleSubmit = (e) => {
-    // eslint-disable-next-line no-undef
-    fetch('/', {
+  const handleSubmit = async (e) => {
+    const response = await fetch('/api/notion', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormContent({ 'form-name': 'resources', ...formContent })
-    })
-      .then(() => {
-        setFormContent({ name: '', website: '' })
-        onClose(e)
-        onSuccess(e)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formContent.name,
+        link: formContent.website
       })
-      .catch(error => console.error(error))
+    })
+
+    if (response.error) {
+      console.error(response.error)
+      return
+    }
+
+    onClose(e)
+    onSuccess(e)
 
     e.preventDefault()
   }

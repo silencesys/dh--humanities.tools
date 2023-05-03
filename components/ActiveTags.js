@@ -7,8 +7,8 @@ const ActiveTags = ({ tags, onFilterChange }) => {
     <div className={style.wrapper}>
       <span className={style.title}>Filters</span>
       {tags.map(tag => (
-          <button key={tag.slug} onClick={(e) => onFilterChange(e, tag)} className={style.button}>
-            {tag.title}
+          <button key={tag} onClick={(e) => onFilterChange(e, tag)} className={style.button}>
+            {tag}
             <FontAwesomeIcon icon={faTimes} className={style.icon} />
           </button>
       ))}
