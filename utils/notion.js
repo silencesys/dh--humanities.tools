@@ -68,7 +68,7 @@ const parseNotionPage = (properties, locale = 'cs', id) => {
     description: properties[upperCaseLocale].rich_text[0].plain_text,
     tags: getTagsFromNotionPage(properties),
     website: properties.Link.url,
-    cover: `/images/${properties.Cover.files[coverPosition]?.name}` || null,
+    cover: `/covers/${properties.Cover.files[coverPosition]?.name}` || null,
     test: properties.Cover.files[coverPosition],
     id
   };
