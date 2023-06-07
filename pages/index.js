@@ -7,7 +7,7 @@ import ActiveTags from '@components/ActiveTags'
 import SubmitAResource from '@components/SubmitAResource'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from '@fortawesome/pro-solid-svg-icons'
-import { getDatabase, parseNotionPage } from '@utils/notion'
+import { downloadPictures, getDatabase, parseNotionPage } from '@utils/notion'
 import path from 'path'
 
 export default function Home({ resources, tags }) {
@@ -103,6 +103,10 @@ export async function getStaticProps ({ locale }) {
   const resources = resourceList
     .map(resource => parseNotionPage(resource.properties, locale, resource.id))
     .sort((a, b) => a.title.localeCompare(b.title))
+
+  for (const resource of resources) {
+    await downloadPictures(resource.fileUrl)
+  }
 
   const tags = resourceList.reduce((acc, resource) => {
     const resourceTags = resource.properties.Categories.multi_select.map((item) => item.name)

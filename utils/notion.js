@@ -49,19 +49,6 @@ const createPage = async ({ title, link }) => {
 const parseNotionPage = (properties, locale = 'cs', id) => {
   const coverPosition = properties.Cover?.files?.length - 1;
   const upperCaseLocale = locale.toUpperCase();
-  console.log(process.cwd())
-  fetch(properties.Cover.files[coverPosition].file.url)
-    .then(res => {
-      if (res.ok) {
-        res.arrayBuffer().then(arrayBuffer => {
-          const buffer = Buffer.from(arrayBuffer)
-          fs.writeFile(`./public/covers/${properties.Cover.files[coverPosition]?.name}`, buffer, () => console.log('finished downloading!'))
-        })
-      } else {
-        console.log('Failed to fetch image')
-      }
-    })
-    .catch(err => console.log(err))
   return {
     title: properties.Name.title[0].plain_text,
     logo: null,
@@ -69,10 +56,18 @@ const parseNotionPage = (properties, locale = 'cs', id) => {
     tags: getTagsFromNotionPage(properties),
     website: properties.Link.url,
     cover: `/covers/${properties.Cover.files[coverPosition]?.name}` || null,
-    test: properties.Cover.files[coverPosition],
+    fileUrl: properties.File?.files[0]?.file.url || null,
     id
   };
 };
+
+const downloadPictures = async (url) => {
+  if (!url) return
+  const imageResponse = await fetch(url)
+  const arrayBuffer = await imageResponse.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
+  fs.writeFile(`./public/covers/${properties.Cover.files[coverPosition]?.name}`, buffer, () => console.log('finished downloading!'))
+}
 
 const getTagsFromNotionPage = (properties) => {
   return properties.Categories.multi_select.map((item) => item.name);
@@ -80,6 +75,7 @@ const getTagsFromNotionPage = (properties) => {
 
 export {
   createPage,
+  downloadPictures,
   getDatabase,
   parseNotionPage,
   getTagsFromNotionPage
