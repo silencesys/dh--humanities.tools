@@ -56,17 +56,19 @@ const parseNotionPage = (properties, locale = 'cs', id) => {
     tags: getTagsFromNotionPage(properties),
     website: properties.Link.url,
     cover: `/covers/${properties.Cover.files[coverPosition]?.name}` || null,
-    fileUrl: properties.File?.files[0]?.file.url || null,
+    fileUrl: properties.Cover?.files[coverPosition]?.file.url || null,
+    fileName: properties.Cover?.files[coverPosition]?.name || null,
     id
   };
 };
 
-const downloadPictures = async (url) => {
+const downloadPictures = async (url, name) => {
+  console.log(url)
   if (!url) return
   const imageResponse = await fetch(url)
   const arrayBuffer = await imageResponse.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
-  fs.writeFile(`./public/covers/${properties.Cover.files[coverPosition]?.name}`, buffer, () => console.log('finished downloading!'))
+  fs.writeFile(`./public/covers/${name}`, buffer, () => console.log('finished downloading!'))
 }
 
 const getTagsFromNotionPage = (properties) => {

@@ -105,7 +105,7 @@ export async function getStaticProps ({ locale }) {
     .sort((a, b) => a.title.localeCompare(b.title))
 
   for (const resource of resources) {
-    await downloadPictures(resource.fileUrl)
+    await downloadPictures(resource.fileUrl, resource.fileName)
   }
 
   const tags = resourceList.reduce((acc, resource) => {
