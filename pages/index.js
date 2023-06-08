@@ -102,7 +102,6 @@ export default function Home({ resources, tags }) {
     const encodedCollection = encodeIds(customCollection)
     setCustomCollection([])
     let shareableLink = window.location.origin + window.location.pathname + '?collection=' + encodedCollection
-    navigator.clipboard.writeText(shareableLink)
     const collectionQuery = {
       collection: encodedCollection
     }
@@ -110,6 +109,7 @@ export default function Home({ resources, tags }) {
       collectionQuery.name = collectionName
       shareableLink += '&name=' + collectionName
     }
+    navigator.clipboard.writeText(shareableLink)
     setCollectionName('')
     setNotification(t('home:collection_saved'))
     push({
