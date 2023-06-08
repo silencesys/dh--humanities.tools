@@ -1,5 +1,11 @@
 {
   "catalogue_of_resources": "Databáze nástrojů a zdrojů pro humanisty",
   "filter_by_tag": "Filtrovat tagy",
-  "submit_successful": "Děkuji za zaslání návrhu, v brzké době se na něj podívám a přidám."
+  "submit_successful": "Děkuji za zaslání návrhu, v brzké době se na něj podívám a přidám.",
+  "create_collection": "Vytvořit kolekci",
+  "save_collection": "Uložit kolekci",
+  "collection_name": "Název kolekce",
+  "custom_collection": "Vlastní kolekce",
+  "collection_saved": "Kolekce byla vytvořena, unikátní odkaz jsme Vám zkopírovali do schránky!",
+  "cancel_collection": "Zavřít"
 }

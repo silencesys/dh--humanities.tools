@@ -49,7 +49,9 @@ const createPage = async ({ title, link }) => {
 const parseNotionPage = (properties, locale = 'cs', id) => {
   const coverPosition = properties.Cover?.files?.length - 1;
   const upperCaseLocale = locale.toUpperCase();
+  console.log(properties)
   return {
+    unique_id: `${properties.ID.unique_id.prefix}-${properties.ID.unique_id.number}`,
     title: properties.Name.title[0].plain_text,
     logo: null,
     description: properties[upperCaseLocale].rich_text[0].plain_text,
@@ -63,8 +65,7 @@ const parseNotionPage = (properties, locale = 'cs', id) => {
 };
 
 const downloadPictures = async (url, name) => {
-  console.log(url)
-  if (!url) return
+  if (!url || process.env.NODE_ENV === 'development') return
   const imageResponse = await fetch(url)
   const arrayBuffer = await imageResponse.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)

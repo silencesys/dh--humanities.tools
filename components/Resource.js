@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import style from '@style/Resource.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faCircle } from '@fortawesome/pro-regular-svg-icons'
 
 const Resource = ({
   title = 'Title',
@@ -9,7 +11,11 @@ const Resource = ({
   tags = [],
   website = '#',
   cover = null,
+  unique_id = null,
   onFilterChange = () => {},
+  onClick = () => {},
+  inCollection = false,
+  isBuildingCollection = false
 }) => {
   const [ showMore, setShowMore ] = useState(false)
   const reference = useRef(null)
@@ -49,8 +55,19 @@ const Resource = ({
   )
 
   return (
-    <article ref={reference} className={style.wrapper}>
-      <a href={website} rel='noopener noreferrer' target='_blank'>
+    <article ref={reference} className={`${style.wrapper} ${inCollection ? style.selected : ''}`}>
+      {isBuildingCollection && inCollection && (
+        <div className={style.inCollection}>
+          <FontAwesomeIcon icon={faCheckCircle} />
+          Selected
+        </div>
+      )}
+      {isBuildingCollection && !inCollection && (
+        <div className={style.notInCollection}>
+          <FontAwesomeIcon icon={faCircle} />
+        </div>
+      )}
+      <a href={website} rel='noopener noreferrer' target='_blank' onClick={(e) => onClick(e, unique_id)}>
         {cover && <div className={style.cover}>
             <Image
               src={cover}

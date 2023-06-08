@@ -4,10 +4,40 @@
   box-shadow: 0 .1rem 1rem rgba(var(--orange-200), .75);
   overflow: hidden;
   transition: all .35s ease-in-out;
+  position: relative;
 }
 .wrapper:hover {
   transform: scale(1.03);
   box-shadow: 0 .2rem 1.5rem rgba(var(--orange-200), .9);
+}
+.wrapper.selected {
+  border: 2px solid rgb(var(--orange-600));
+}
+.inCollection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(var(--orange-600));
+  padding: .25rem .5rem;
+  border-radius: 0 0 .5rem 0;
+  color: rgb(var(--white));
+  z-index: 5;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+.notInCollection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .5rem .5rem;
+  border-radius: 0 0 .5rem 0;
+  color: rgb(var(--orange-500));
+  z-index: 5;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  line-height: 1.5rem;
 }
 .wrapper a {
   display: grid;
