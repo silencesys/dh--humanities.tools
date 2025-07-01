@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -20,17 +20,17 @@
     "@notionhq/client": "^2.2.3",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
-    "next": "11.1.0",
+    "next": "^12.3.7",
     "next-translate": "^1.2.0",
     "raw-loader": "^4.0.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-markdown": "^7.1.0",
     "smoothscroll-polyfill": "^0.4.4",
     "swr": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-config-next": "12.0.3"
+    "eslint-config-next": "^12.3.7"
   }
 }

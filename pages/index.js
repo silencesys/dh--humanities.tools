@@ -231,7 +231,6 @@ export async function getStaticProps ({ locale }) {
     .sort((a, b) => a.title.localeCompare(b.title))
 
   for (const resource of resources) {
-    console.log(resource.unique_id)
     await downloadPictures(resource.fileUrl, resource.fileName)
   }
 
