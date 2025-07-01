@@ -14,7 +14,7 @@ import { decodeIds, encodeIds } from '@utils/encoding'
 import { faCheck, faCheckCircle, faGrid2Plus } from '@fortawesome/pro-regular-svg-icons'
 
 export default function Home({ resources, tags }) {
-  const { t } = useTranslation('common', 'home')
+  const { t, lang } = useTranslation()
   const { query, push } = useRouter()
   const [submitModal, setSubmitModal] = useState(false)
   const [ currentResources, setCurrentResources ] = useState(resources)
