@@ -1,10 +1,14 @@
 .wrapper {
   background-color: rgb(var(--orange-100));
-  color: rgb(var(--orange-900));
+  color: rgb(var(--orange-700));
   display: flex;
   height: 230px;
   width: 100%;
   padding-bottom: 1rem;
+  line-height: 1.5rem;
+}
+.text {
+  color: rgb(var(--orange-550));
 }
 .container {
   align-content: center;
@@ -16,10 +20,9 @@
   max-width: var(--max-width);
   width: 100%;
 }
-.title {
-  font-size: 1rem;
-  font-weight: 800;
-  display: block;
+.contact {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
 }
 .copyright {
@@ -29,6 +32,9 @@
 }
 .menu {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 .menu li {
   list-style: none;
@@ -38,8 +44,21 @@
   font-size: 1rem;
   transition: all .2s ease-in-out;
 }
-.menu li a:hover {
+.menu li a:hover:not(.button) {
   color: rgb(var(--orange-600));
+}
+
+.button {
+  width: 100%;
+  height: auto;
+  background-color: rgb(var(--orange-650));
+  padding: .5rem 1rem;
+  border-radius: 4px;
+  color: rgb(var(--white));
+  &:hover {
+    background-color: rgb(var(--orange-600));
+    color: rgb(var(--white));
+  }
 }
 
 @media screen and (max-width: 1200px) {

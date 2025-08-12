@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import style from '@style/Resource.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faCircle } from '@fortawesome/pro-regular-svg-icons'
+import { faBuilding, faCheckCircle, faCircle } from '@fortawesome/pro-regular-svg-icons'
 
 const Resource = ({
   title = 'Title',
   logo = null,
   description = 'Description',
+  institution = 'Institution',
   tags = [],
   website = '#',
   cover = null,
@@ -48,59 +49,42 @@ const Resource = ({
     }
   }, [reference])
 
-  const resourceDescription = (
-    description.length > 120 && !showMore ?
-    <p>{description.match(/.{1,120}(\s|$)/g)[0].slice(0, -1)}...</p>
-    : <p>{description}</p>
-  )
-
   return (
     <article ref={reference} className={`${style.wrapper} ${inCollection ? style.selected : ''}`}>
-      {isBuildingCollection && inCollection && (
-        <div className={style.inCollection}>
-          <FontAwesomeIcon icon={faCheckCircle} />
-          Selected
-        </div>
-      )}
-      {isBuildingCollection && !inCollection && (
-        <div className={style.notInCollection}>
-          <FontAwesomeIcon icon={faCircle} />
-        </div>
-      )}
       <a href={website} rel='noopener noreferrer' target='_blank' onClick={(e) => onClick(e, unique_id)}>
-        {cover && <div className={style.cover}>
-            <Image
-              src={cover}
-              alt='logo'
-              width='280px'
-              height='220px'
-              objectFit='contain'
-              className={style.preview}
-              unoptimized
-            />
-        </div>}
+        <div className={style.cover}>
+          <Image
+            src={`/api/screenshot?url=${encodeURIComponent(website)}&w=280&h=220`}
+            alt='logo'
+            width={280}
+            height={220}
+            className={style.preview}
+            unoptimized
+          />
+        </div>
         <div className={style.content}>
           <header className={style.header}>
-            {logo && <Image
-              src={logo}
-              alt='logo'
-              width='26px'
-              height='28px'
-              objectFit='contain'
-              className={style.logo}
-              unoptimized
-            />}
+            <div>
             <h3 className={style.title}>
               {title}
             </h3>
+            </div>
+            <span className={style.resourceURL}>{website}</span>
           </header>
-          {resourceDescription}
+          <p>{description}</p>
           <footer className={style.footer}>
-            <div></div>
-            <div className={style.tags}>
-              <button className={style.tagButton} onClick={(e) => onFilterChange(e, tags[0])}>
-                #{tags[0]}
+            <div className={style.institution}>
+              <button className={style.institutionButton}>
+                <FontAwesomeIcon icon={faBuilding} className={style.icon} />
+                {institution}
               </button>
+            </div>
+            <div className={style.tags}>
+              {tags.length > 0 && tags.map(tag => (
+                <button key={tag} className={style.tagButton} onClick={(e) => onFilterChange(e, tag)}>
+                  #{tag}
+                </button>
+              ))}
             </div>
           </footer>
         </div>

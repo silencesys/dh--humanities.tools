@@ -47,19 +47,15 @@ const createPage = async ({ title, link }) => {
 }
 
 const parseNotionPage = (properties, locale = 'cs', id) => {
-  const coverPosition = properties.Cover?.files?.length - 1;
   const upperCaseLocale = locale.toUpperCase();
-  console.log(properties)
   return {
     unique_id: `${properties.ID.unique_id.prefix}-${properties.ID.unique_id.number}`,
     title: properties.Name.title[0].plain_text,
     logo: null,
     description: properties[upperCaseLocale].rich_text[0].plain_text,
+    institution: properties.Institution.select.name,
     tags: getTagsFromNotionPage(properties),
     website: properties.Link.url,
-    cover: `/covers/${properties.Cover.files[coverPosition]?.name}` || null,
-    fileUrl: properties.Cover?.files[coverPosition]?.file.url || null,
-    fileName: properties.Cover?.files[coverPosition]?.name || null,
     id
   };
 };

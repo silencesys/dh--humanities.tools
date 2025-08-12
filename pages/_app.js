@@ -12,7 +12,7 @@ config.autoAddCss = false
 
 function HumanitiesTools({ Component, pageProps }) {
   return (
-    <Layout>
+    <Layout logo={pageProps.logo} configuration={pageProps.siteConfiguration}>
       <Script
         async
         defer

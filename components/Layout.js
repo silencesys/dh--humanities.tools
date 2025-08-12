@@ -1,12 +1,12 @@
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 
-const Layout = ({ children }) => {
+const Layout = ({ children, logo, configuration }) => {
   return (
     <div className='websiteWrapper'>
-      <Header />
+      <Header logo={logo} configuration={configuration} />
       <main>{children}</main>
-      <Footer />
+      <Footer configuration={configuration} />
     </div>
   )
 }

@@ -1,11 +1,5 @@
 {
-  "catalogue_of_resources": "Catalogue of tools and resources for humanities",
-  "filter_by_tag": "Filter tags",
-  "submit_successful": "Thank you for your submission, it will be reviewed and added soon.",
-  "create_collection": "Create collection",
-  "save_collection": "Save collection",
-  "collection_name": "Collection name",
-  "custom_collection": "Custom collection",
-  "collection_saved": "Collection has been saved, unique link to share the collection has been copied to your clipboard!",
-  "cancel_collection": "Cancel"
+  "catalogue_of_resources": "Databases",
+  "catch_phrase_description": "Below is an overview of databases maintained by MSHL and its member institutions, including access details. Additional information is provided on other relevant databases managed by external organisations.",
+  "filter_by_tag": "Filter tags"
 }

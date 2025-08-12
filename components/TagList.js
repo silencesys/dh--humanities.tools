@@ -1,6 +1,6 @@
 import style from '@style/TagList.module.css'
 
-const TagList = ({ tags, onFilterChange = () => {}, activeTags = [] }) => {
+const TagList = ({ tags, onFilterChange = () => {}, activeTags = [] }) => {
   return (
     <div className={`${style.wrapper} tagFilter`}>
       <ul className={style.list}>

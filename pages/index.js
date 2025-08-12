@@ -12,8 +12,9 @@ import path from 'path'
 import { useRouter } from 'next/router'
 import { decodeIds, encodeIds } from '@utils/encoding'
 import { faCheck, faCheckCircle, faGrid2Plus } from '@fortawesome/pro-regular-svg-icons'
+import { getSiteConfiguration, getImage, getMenuItems } from './api/wp'
 
-export default function Home({ resources, tags }) {
+export default function Home({ resources, tags, siteConfiguration, logo }) {
   const { t, lang } = useTranslation()
   const { query, push } = useRouter()
   const [submitModal, setSubmitModal] = useState(false)
@@ -122,20 +123,14 @@ export default function Home({ resources, tags }) {
 
   return (
     <main className='mainContainer'>
-      <Head title='humanities.tools' />
+      <Head title='mhsl.is' />
       <div className='content__header'>
         <h1 className='catchPhrase'>
           {t('home:catalogue_of_resources')}
         </h1>
-        {query.collection && (
-          <h2 className='customCollection'>
-            {query.name ? query.name : t('home:custom_collection')}
-          </h2>
-        )}
-        <button className='button__primary' onClick={toggleSubmitModal}>
-          {t('resource:submit_resource')}
-        </button>
-        {recentlySubmitted && <p className='content__successfulSubmit'>{t('home:submit_successful')}</p>}
+        <p className='catchPhrase__description'>
+          {t('home:catch_phrase_description')}
+        </p>
       </div>
 
       <div className='content__filterRow'>
@@ -144,23 +139,6 @@ export default function Home({ resources, tags }) {
           {t('home:filter_by_tag')}
           <TagList tags={tags} onFilterChange={onFilterChange} activeTags={filters} />
         </div>
-        {buildingCollection ? (
-          <div
-            className='button__secondary tagFilterButton'
-            onClick={saveCustomCollection}
-          >
-            <FontAwesomeIcon icon={faCheck} className='buttonIcon' />
-            {t('home:save_collection')} ({customCollection.length})
-          </div>
-        ) : (
-          <div
-            className='button__secondary tagFilterButton'
-            onClick={() => setBuildingCollection(true)}
-          >
-            <FontAwesomeIcon icon={faGrid2Plus} className='buttonIcon' />
-            {t('home:create_collection')}
-          </div>
-        )}
       </div>
       <div className='content__body'>
         {resources && currentResources.map(resource =>
@@ -234,15 +212,21 @@ export async function getStaticProps ({ locale }) {
     await downloadPictures(resource.fileUrl, resource.fileName)
   }
 
+  const siteConfiguration = await getSiteConfiguration()
+  const logo = siteConfiguration?.logo ? await getImage(siteConfiguration.logo) : null
+
   const tags = resourceList.reduce((acc, resource) => {
     const resourceTags = resource.properties.Categories.multi_select.map((item) => item.name)
     return [...acc, ...resourceTags]
   }, []).filter((item, index, array) => array.indexOf(item) === index)
+
   path.resolve('content')
   return {
     props: {
       resources,
-      tags
+      tags,
+      siteConfiguration,
+      logo
     }
   }
 }

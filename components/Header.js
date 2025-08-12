@@ -4,8 +4,10 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
 import style from '@style/Header.module.css'
+import { useEffect } from 'react'
+import Image from 'next/image'
 
-const Header = () => {
+const Header = ({ logo, configuration }) => {
   const router = useRouter()
   const { t } = useTranslation('common')
 
@@ -16,10 +18,17 @@ const Header = () => {
   return (
     <header className={style.container}>
       <h2 className={style.siteTitle}>
-        <Link href='/' passHref>
-          <a>
-          humanities.tools
-          </a>
+        <Link href='/'>
+          <Image
+            src={logo.url}
+            width={50}
+            height={32}
+            alt={configuration?.title || 'Humanities Tools Logo'}
+            className={style.logo}
+          />
+          <span>
+            {configuration?.description}
+          </span>
         </Link>
       </h2>
       <nav>
@@ -33,8 +42,8 @@ const Header = () => {
                 </button>
               </li>
               <li>
-                <button className={style.menuButton} onClick={() => changeLanguage('cs')}>
-                  čeština
+                <button className={style.menuButton} onClick={() => changeLanguage('is')}>
+                  íslenska
                 </button>
               </li>
             </ul>

@@ -12,7 +12,13 @@
 }
 .siteTitle {
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 400;
+}
+.siteTitle a {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: #6d6d6d;
 }
 .siteTitle a {
   transition: all .2s ease-in-out;
