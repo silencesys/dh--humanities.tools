@@ -60,12 +60,9 @@ function fileKeyFor(inputUrl, size) {
   const u = new URL(ensureProtocol(inputUrl));
   const host = safeName(u.hostname);
   const id = hashHex(canonicalizeUrl(inputUrl), 16);
-  const lastSeg = u.pathname.split('/').filter(Boolean).pop() || 'root';
-  const frag = u.hash ? u.hash.slice(1) : '';
-  const slug = safeName(lastSeg + (frag ? '_' + frag : '')) || 'page';
   const variant = size ? `_w${size.w}h${size.h}` : '';
-  // Flat namespace (no folders)
-  return `${host}_${id}.png`;
+  // Flat namespace (no folders), include size variant to avoid overwrites
+  return `${host}_${id}${variant}.png`;
 }
 
 function parseSize(req) {
@@ -94,38 +91,127 @@ export default async function handler(req, res) {
       return;
     }
   } catch {
-    // head() throws if not found; we proceed to generate
+    // head() throws if not found; proceed to generate
   }
 
-  // Launch Puppeteer (use puppeteer-core + @sparticuz/chromium on Vercel)
+  // Launch Puppeteer (Vercel: puppeteer-core + @sparticuz/chromium + stealth)
   let browser;
   try {
+    const UA =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+
     if (process.env.VERCEL) {
-      const chromium = await import('@sparticuz/chromium');
-      const puppeteerCore = await import('puppeteer-core');
-      browser = await puppeteerCore.default.launch({
-        args: chromium.default.args,
-        executablePath: await chromium.default.executablePath(),
+      const chromium = (await import('@sparticuz/chromium')).default;
+      const { addExtra } = await import('puppeteer-extra');
+      const StealthPlugin = (await import('puppeteer-extra-plugin-stealth')).default;
+      const puppeteerCore = (await import('puppeteer-core')).default;
+
+      const puppeteer = addExtra(puppeteerCore);
+      puppeteer.use(StealthPlugin());
+
+      browser = await puppeteer.launch({
+        args: [
+          ...chromium.args,
+          '--disable-dev-shm-usage',
+          '--no-first-run',
+          '--no-default-browser-check',
+          '--ignore-gpu-blocklist',
+          '--enable-webgl',
+          '--use-gl=swiftshader',
+          '--hide-scrollbars',
+          '--window-size=1260,990',
+        ],
+        defaultViewport: { width: 1260, height: 990, deviceScaleFactor: 2 },
+        executablePath: await chromium.executablePath(),
         headless: true,
       });
     } else {
-      const puppeteer = await import('puppeteer');
-      browser = await puppeteer.default.launch({ headless: true });
+      const { addExtra } = await import('puppeteer-extra');
+      const StealthPlugin = (await import('puppeteer-extra-plugin-stealth')).default;
+      const puppeteer = addExtra((await import('puppeteer')).default);
+      puppeteer.use(StealthPlugin());
+
+      browser = await puppeteer.launch({
+        headless: true,
+        defaultViewport: { width: 1260, height: 990, deviceScaleFactor: 2 },
+        args: ['--hide-scrollbars', '--window-size=1260,990'],
+      });
     }
 
     const page = await browser.newPage();
-    await page.setViewport({ width: 1260, height: 990 }); // 14:11
-    await page.goto(ensureProtocol(target), { waitUntil: 'networkidle2', timeout: 60_000 });
 
-    // Full page capture; remove fullPage if you only want viewport
+    // Language and UA
+    await page.setUserAgent(UA);
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'en-US,en;q=0.9,cs;q=0.8',
+      'sec-ch-ua': '"Google Chrome";v="126", "Chromium";v="126", "Not=A?Brand";v="99"',
+      'sec-ch-ua-platform': '"Windows"',
+      'sec-ch-ua-mobile': '?0',
+    });
+
+    // Timezone + media features
+    await page.emulateTimezone('Europe/Prague');
+    await page.emulateMediaType('screen');
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: 'light' },
+      { name: 'prefers-reduced-motion', value: 'no-preference' },
+    ]);
+
+    // Start at the top; disable smooth scrolling and scroll restoration
+    await page.evaluateOnNewDocument(() => {
+      try { history.scrollRestoration = 'manual'; } catch {}
+      const style = document.createElement('style');
+      style.textContent = 'html,body{scroll-behavior:auto !important;}';
+      document.documentElement.appendChild(style);
+      window.addEventListener('load', () => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, { once: true });
+    });
+
+    // Strip hash to avoid auto-jump to anchors
+    const urlObj = new URL(ensureProtocol(target));
+    urlObj.hash = '';
+
+    await page.goto(urlObj.toString(), { waitUntil: 'networkidle2', timeout: 60_000 });
+
+    // Optional: auto-scroll to trigger lazy content, then return to top
+    async function autoScroll(p) {
+      await p.evaluate(async () => {
+        await new Promise((resolve) => {
+          let total = 0;
+          const distance = Math.max(200, Math.floor(window.innerHeight * 0.6));
+          const timer = setInterval(() => {
+            const doc = document.scrollingElement || document.documentElement;
+            const max = doc.scrollHeight - window.innerHeight;
+            window.scrollBy(0, distance);
+            total += distance;
+            if (total >= max - 2) {
+              clearInterval(timer);
+              resolve();
+            }
+          }, 80);
+        });
+      });
+    }
+    await autoScroll(page);
+    await page.evaluate(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+    await page.waitForFunction(() => window.scrollY === 0);
+
+    // Viewport-only capture (top of page); set fullPage: true if you want full-length
     const originalBuffer = await page.screenshot({ type: 'png', fullPage: false });
 
     let resultBuffer = originalBuffer;
     if (size) {
       resultBuffer = await sharp(originalBuffer)
         .resize(size.w, size.h, {
-          fit: 'cover',       // or 'contain' to letterbox instead of crop
-          position: 'center', // or 'center' to center crop
+          fit: 'cover',         // or 'contain' to letterbox
+          position: 'center',   // or 'northwest' for top-left crop
           withoutEnlargement: true,
         })
         .png()
@@ -137,7 +223,7 @@ export default async function handler(req, res) {
       access: 'public',
       contentType: 'image/png',
       cacheControl: 'public, max-age=31536000, immutable',
-      addRandomSuffix: false, // keep deterministic key
+      addRandomSuffix: false, // deterministic key
     });
 
     // Redirect to the Blob URL
