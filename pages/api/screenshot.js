@@ -115,7 +115,29 @@ export default async function handler(req, res) {
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1260, height: 990 }); // 14:11
+
+    await page.evaluateOnNewDocument(() => {
+      try { history.scrollRestoration = 'manual'; } catch {}
+      const style = document.createElement('style');
+      style.textContent = 'html,body{scroll-behavior:auto !important;}';
+      document.documentElement.appendChild(style);
+      window.addEventListener('load', () => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, { once: true });
+    });
+
     await page.goto(ensureProtocol(target), { waitUntil: 'networkidle2', timeout: 60_000 });
+
+    await page.evaluate(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+
+    // 5) Ensure we’re there
+    await page.waitForFunction(() => window.scrollY === 0);
 
     // Full page capture; remove fullPage if you only want viewport
     const originalBuffer = await page.screenshot({ type: 'png', fullPage: true });
