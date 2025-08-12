@@ -65,7 +65,7 @@ function fileKeyFor(inputUrl, size) {
   const slug = safeName(lastSeg + (frag ? '_' + frag : '')) || 'page';
   const variant = size ? `_w${size.w}h${size.h}` : '';
   // Flat namespace (no folders)
-  return `${host}__${id}_${slug}${variant}.png`;
+  return `${host}_${id}.png`;
 }
 
 function parseSize(req) {
@@ -115,39 +115,17 @@ export default async function handler(req, res) {
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1260, height: 990 }); // 14:11
-
-    await page.evaluateOnNewDocument(() => {
-      try { history.scrollRestoration = 'manual'; } catch {}
-      const style = document.createElement('style');
-      style.textContent = 'html,body{scroll-behavior:auto !important;}';
-      document.documentElement.appendChild(style);
-      window.addEventListener('load', () => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, { once: true });
-    });
-
     await page.goto(ensureProtocol(target), { waitUntil: 'networkidle2', timeout: 60_000 });
 
-    await page.evaluate(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    });
-
-    // 5) Ensure we’re there
-    await page.waitForFunction(() => window.scrollY === 0);
-
     // Full page capture; remove fullPage if you only want viewport
-    const originalBuffer = await page.screenshot({ type: 'png', fullPage: true });
+    const originalBuffer = await page.screenshot({ type: 'png', fullPage: false });
 
     let resultBuffer = originalBuffer;
     if (size) {
       resultBuffer = await sharp(originalBuffer)
         .resize(size.w, size.h, {
           fit: 'cover',       // or 'contain' to letterbox instead of crop
-          position: 'top left', // or 'center' to center crop
+          position: 'center', // or 'center' to center crop
           withoutEnlargement: true,
         })
         .png()
