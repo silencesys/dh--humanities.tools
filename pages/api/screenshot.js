@@ -147,7 +147,7 @@ export default async function handler(req, res) {
       resultBuffer = await sharp(originalBuffer)
         .resize(size.w, size.h, {
           fit: 'cover',       // or 'contain' to letterbox instead of crop
-          position: 'center',
+          position: 'top left', // or 'center' to center crop
           withoutEnlargement: true,
         })
         .png()
