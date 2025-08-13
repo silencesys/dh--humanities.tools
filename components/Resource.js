@@ -54,7 +54,7 @@ const Resource = ({
       <a href={website} rel='noopener noreferrer' target='_blank' onClick={(e) => onClick(e, unique_id)}>
         <div className={style.cover}>
           <Image
-            src={`/api/screenshot?url=${encodeURIComponent(website)}&w=280&h=220`}
+            src={`https://pagescreen.coders.tools/screenshot?url=${encodeURIComponent(website)}&w=280&h=220`}
             alt='logo'
             width={280}
             height={220}

@@ -18,7 +18,7 @@ module.exports = nextTranslate({
       },
       {
         protocol: 'https',
-        hostname: 'www.google.com',
+        hostname: 'pagescreen.coders.tools',
         port: '',
         pathname: '/**'
       },
