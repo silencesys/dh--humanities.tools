@@ -17,9 +17,7 @@ const Header = () => {
     <header className={style.container}>
       <h2 className={style.siteTitle}>
         <Link href='/' passHref>
-          <a>
           humanities.tools
-          </a>
         </Link>
       </h2>
       <nav>

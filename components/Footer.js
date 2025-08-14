@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
         <ul className={style.menu}>
           {data && data.map(({ slug, title }) => (
-            <li key={slug}><Link href={`/${slug}`} passhref><a>{title}</a></Link></li>
+            <li key={slug}><Link href={`/${slug}`} passhref>{title}</Link></li>
           ))}
           <li><Link href='/about'>{t('about')}</Link></li>
           <li><a href="mailto:martin@rocek.dev">{t('contact')}</a></li>

@@ -70,10 +70,10 @@ const Resource = ({
       <a href={website} rel='noopener noreferrer' target='_blank' onClick={(e) => onClick(e, unique_id)}>
         {cover && <div className={style.cover}>
             <Image
-              src={cover}
+              src={`https://pagescreen.coders.tools/screenshot?url=${encodeURIComponent(website)}&width=280&height=220`}
               alt='logo'
-              width='280px'
-              height='220px'
+              width={280}
+              height={220}
               objectFit='contain'
               className={style.preview}
               unoptimized
