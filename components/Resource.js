@@ -68,7 +68,7 @@ const Resource = ({
         </div>
       )}
       <a href={website} rel='noopener noreferrer' target='_blank' onClick={(e) => onClick(e, unique_id)}>
-        {cover && <div className={style.cover}>
+        {<div className={style.cover}>
             <Image
               src={`https://pagescreen.coders.tools/screenshot?url=${encodeURIComponent(website)}&width=280&height=220`}
               alt='logo'
