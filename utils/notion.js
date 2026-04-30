@@ -57,9 +57,9 @@ const parseNotionPage = (properties, locale = 'cs', id) => {
     description: properties[upperCaseLocale].rich_text[0].plain_text,
     tags: getTagsFromNotionPage(properties),
     website: properties.Link.url,
-    cover: `/covers/${properties.Cover.files[coverPosition]?.name}` || null,
-    fileUrl: properties.Cover?.files[coverPosition]?.file.url || null,
-    fileName: properties.Cover?.files[coverPosition]?.name || null,
+    cover: null,
+    fileUrl: null,
+    fileName: null,
     id
   };
 };
