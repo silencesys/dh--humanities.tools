@@ -14,7 +14,7 @@ const decodeIds = (encodedString) => {
   const encodedIds = encodedString.split("-");
   for (let i = 0; i < encodedIds.length; i++) {
       const id = parseInt(encodedIds[i], 36);
-      result.push('SO-' + id);
+      result.push('HU-' + id);
   }
   return result;
 }
