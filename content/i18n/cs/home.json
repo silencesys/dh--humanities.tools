@@ -7,5 +7,6 @@
   "collection_name": "Název kolekce",
   "custom_collection": "Vlastní kolekce",
   "collection_saved": "Kolekce byla vytvořena, unikátní odkaz jsme Vám zkopírovali do schránky!",
-  "cancel_collection": "Zavřít"
+  "cancel_collection": "Zavřít",
+  "search_placeholder": "Hledat nástroje a zdroje"
 }

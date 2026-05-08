@@ -7,5 +7,6 @@
   "collection_name": "Collection name",
   "custom_collection": "Custom collection",
   "collection_saved": "Collection has been saved, unique link to share the collection has been copied to your clipboard!",
-  "cancel_collection": "Cancel"
+  "cancel_collection": "Cancel",
+  "search_placeholder": "Search for tools and resources"
 }

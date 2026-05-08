@@ -94,7 +94,7 @@ const Resource = ({
               {title}
             </h3>
           </header>
-          {resourceDescription}
+          <p>{description}</p>
           <footer className={style.footer}>
             <div></div>
             <div className={style.tags}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import Head from '@components/Head'
 import Resource from '@components/Resource'
@@ -12,6 +12,8 @@ import path from 'path'
 import { useRouter } from 'next/router'
 import { decodeIds, encodeIds } from '@utils/encoding'
 import { faCheck, faCheckCircle, faGrid2Plus } from '@fortawesome/pro-regular-svg-icons'
+import { fuzzySearch } from '@utils/fuzzySearch'
+import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons'
 
 export default function Home({ resources, tags }) {
   const { t, lang } = useTranslation()
@@ -24,6 +26,8 @@ export default function Home({ resources, tags }) {
   const [buildingCollection, setBuildingCollection] = useState(false)
   const [collectionName, setCollectionName] = useState('')
   const [notification, setNotification] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const masonryRef = useRef(null)
 
   useEffect(() => {
     let data = resources
@@ -32,12 +36,42 @@ export default function Home({ resources, tags }) {
       data = resources.filter(resource => collection.some(id => id === resource.unique_id))
     }
     if (filters.length > 0) {
-      const filteredResources = data.filter(resource => resource.tags.some(tag => filters.some(tags => tags === tag)))
-      setCurrentResources(filteredResources)
-    } else {
-      setCurrentResources(data)
+      data = data.filter(resource => resource.tags.some(tag => filters.some(tags => tags === tag)))
     }
-  }, [filters, resources, query])
+    setCurrentResources(fuzzySearch(searchQuery, data))
+  }, [filters, resources, query, searchQuery])
+
+  useEffect(() => {
+    if (!masonryRef.current) return
+    let msnry = null
+    let observer = null
+    let cancelled = false
+    const container = masonryRef.current
+
+    import('masonry-layout').then(({ default: Masonry }) => {
+      if (cancelled || !container) return
+      msnry = new Masonry(container, {
+        itemSelector: '.content__body__item',
+        columnWidth: '.content__body__sizer',
+        gutter: '.content__body__gutter',
+        percentPosition: true,
+      })
+
+      // Re-layout whenever any item resizes (e.g. images finishing load)
+      observer = new ResizeObserver(() => {
+        msnry?.layout()
+      })
+      container.querySelectorAll('.content__body__item').forEach((el) => {
+        observer.observe(el)
+      })
+    })
+
+    return () => {
+      cancelled = true
+      observer?.disconnect()
+      msnry?.destroy()
+    }
+  }, [currentResources])
 
   useEffect(() => {
     if (recentlySubmitted) {
@@ -161,17 +195,29 @@ export default function Home({ resources, tags }) {
             {t('home:create_collection')}
           </div>
         )}
-      </div>
-      <div className='content__body'>
-        {resources && currentResources.map(resource =>
-          <Resource
-            key={resource.id}
-            onFilterChange={onFilterChange}
-            onClick={handleResourceClick}
-            inCollection={customCollection.indexOf(resource.unique_id) !== -1}
-            isBuildingCollection={buildingCollection}
-            {...resource}
+        <div className='searchWrapper'>
+          <FontAwesomeIcon icon={faMagnifyingGlass} className='buttonIcon' />
+          <input
+            type='text'
+            className='searchInput'
+            placeholder={t('home:search_placeholder')}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
+        </div>
+      </div>
+      <div className='content__body' ref={masonryRef}>
+        <div className='content__body__sizer' />
+        <div className='content__body__gutter' />
+        {resources && currentResources.map(resource =>
+          <div className='content__body__item' key={resource.id}>
+            <Resource
+              onFilterChange={onFilterChange}
+              onClick={handleResourceClick}
+              inCollection={customCollection.indexOf(resource.unique_id) !== -1}
+              isBuildingCollection={buildingCollection}
+              {...resource}
+            />
+          </div>
         )}
       </div>
 

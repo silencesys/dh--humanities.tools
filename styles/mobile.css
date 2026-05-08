@@ -4,12 +4,24 @@
   }
 }
 @media screen and (max-width: 900px) {
-  .content__body {
-    grid-template-columns: 1fr 1fr;
+  .content__body__sizer {
+    width: calc((100% - 1.5rem) / 2);
+  }
+  .content__body__gutter {
+    width: 1.5rem;
+  }
+  .content__body__item {
+    width: calc((100% - 1.5rem) / 2);
   }
 }
 @media screen and (max-width: 650px) {
-  .content__body {
-    grid-template-columns: 1fr;
+  .content__body__sizer {
+    width: 100%;
+  }
+  .content__body__gutter {
+    width: 0;
+  }
+  .content__body__item {
+    width: 100%;
   }
 }
