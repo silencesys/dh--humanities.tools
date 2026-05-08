@@ -9,6 +9,7 @@
   width: 100vw;
   top: 0;
   left: 0;
+  z-index: 20;
 }
 .formWrapper {
   background-color: rgb(var(--orange-100));
