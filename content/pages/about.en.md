@@ -6,11 +6,8 @@ date: '2021-11-14T07:00:00.000Z'
 
 # Who is behind this?
 
-My name is [Martin Roček](https://rocek.dev), I'm web developer, illustrator and student of history at the Faculty of Arts, Charles University in Prague.
+This project is created and maintained by me, [Martin Roček](https://rocek.dev). I am a web developer, illustrator and digital humanities scholar at the Faculty of Arts, Charles University in Prague.
 
-I created humanities.tools because I always wanted to have site where anyone from humanities could fint tools for their research.
-
-I was also greatly influenced by website called [illustration.tools](https://illustration.tools/) built by Magoz. I'm sure you recognize the amount of
-inspiration I've borrowed from it. _I hope Magoz won't be angry._ 🙂
+The idea for database of tools came to me when I was looking for tools and resources for my research and Googling it was not really helpful. I thought it would be nice to have some place where people could come for ideas.
 
 My goal is to further improve the platform by adding new tools and features. So, if you have any ideas how to improve it or you want to contribute, please, let me know on my email.
