@@ -270,6 +270,21 @@ a {
     margin-bottom: 1rem;
     width: 100%;
   }
+  .content__filterRow {
+    flex-wrap: wrap;
+  }
+  .content__filterRow .searchWrapper {
+    flex-basis: 100%;
+  }
+  .searchWrapper {
+    z-index: initial;
+    & .buttonIcon {
+      z-index: 1;
+    }
+  }
+  .searchInput {
+    z-index: initial;
+  }
   .collectionBuilder {
     flex-direction: column;
     width: 100%;
